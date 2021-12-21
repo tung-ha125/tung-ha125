@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string.h>
+//hàm main
+void trim_left(char *s){
+    int range=strlen(s); //lưu độ dài xâu ban đầu
+    for(int i=0;i<range;i++){
+        if(s[i]!=' ') break; //nếu gặp character không phải khoảng trắng thì thoát khỏi vòng lặp luôn
+        if(s[i]==' '){ //nếu character là khoảng trắng thì dịch chuyển mảng xâu phải 
+            for(int j=i;j<strlen(s)-1;j++){
+               s[j]=s[j+1];
+            }
+        s[strlen(s)-1]='\0'; //ký tự chấm dứt chuỗi
+        i--; //giảm i đi 1 đơn vị để check lại sau khi dịch chuyển xâu thì ký tự còn =0 nữa ko; 
+        }
+    }
+}
