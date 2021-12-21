@@ -1,0 +1,16 @@
+//Cho 1 xâu S, ký tự c, xóa c ra khỏi xâu S 
+#include <iostream>
+#include <string.h>
+
+void delete_char(char *S, char c){
+    for(int i=0;i<strlen(S);i++){
+        if(S[i]==c){
+            for(int j=i;j<(strlen(S)-1);j++){  //dịch chuyển ptử mảng
+                S[j]=S[j+1];
+            }
+            S[strlen(S)-1]='\0'; //đặt ký hiệu kết thúc ở cuối để xâu update xâu mới
+            i--; //check lại 1 lần nữa xem phần tử thứ i còn ký tự c nữa ko vì ptu sau i có thể = c
+        }
+    }
+}
+
