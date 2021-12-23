@@ -1,0 +1,57 @@
+Xâu a gồm các chữ cái thường và in hoa và xâu b chỉ gồm các chữ cái in hoa. Ta có thể biến đổi xâu a theo 2 bước như sau:
+     1.Chuyển một số chữ cái thường trong xâu a thành chữ cái in hoa (có thể không biến đổi chữ cái nào).
+     2.Xóa hết tất cả các chữ cái thường trong xâu a.
+Cho 2 xâu a,b, xác định xem có cách biến đổi từ xâu a sang xâu b không. Ghi ra YES nếu có và NO nếu ngược lại.
+
+Đầu vào
+Đầu vào từ bàn phím chứa 2Q+1 dòng. Dòng đầu tiên chứa một số nguyên Q là số lượng câu hỏi. Tương ứng với mỗi câu hỏi, đưa ra 2 xâu a,b trên 2 dòng khác nhau (Q≤10;|a|,|b|≤1000).
+
+Đầu ra
+In ra màn hình kết quả tương ứng của từng câu hỏi trên một dòng.
+
+For example:
+______________
+Input	|Result|
+1     | YES  | 
+daBcd |      |
+ABC   |      |
+______|______|
+My opinion: Vì chữ hoa không loại được nên nếu khi chưa bắt đầu  ký tự đầu xâu sb và khi ta đã xét đủ điều kiện để thành sb mà còn ký tự in hoa nào thì sẽ sai ngay 
+#include <iostream>
+#include <string>
+
+bool check(std::string sa, std::string sb){
+    long temp=0;
+    for(long i=0;i<sa.size();i++){
+        if(sa[i]==sb[temp] || sa[i]==sb[temp]+32){ //khi có 1 ký tự ở xâu sa bằng hoặc là dạng thường của xâu ký tự ở sb thì nó sẽ hoạt động
+            if(temp<=sb.size()) temp++;            //tăng temp lên 1 để nó xét ký tự sau của xâu sb khi temp <= độ dài xâu sb
+            else{  //khi temp> sb.size thì xét nếu có số in hoa bằng ký tự cuối xâu thì sai luôn
+                if(sa[i]==toupper(sa[i])) return false;   
+            }
+        }
+        else{
+            if(sa[i]!=sb[temp-1] && sa[i]==toupper(sa[i])) return false;   //nếu trong khi chưa đi đến đk chữ cuối cùng của xâu mà có ký tự tm 2đk: 1.in hoa  2.không bằng xâu trước thì sai luôn
+            if(temp==0 && sa[i]==toupper(sa[i])) return false;    //khi chưa gặp ký tự đủ đk trở thành đầu xâu sbnếu có ký tự in hoa 
+            if(temp==sb.size() && sa[i]==toupper(sa[i])) return false; 
+        }
+    }
+    if(temp==sb.size()) return true;
+    else return false;
+}
+int main()
+{
+    int n;
+    std::cin >>n;
+    int array[n];
+    for(int i=0;i<n;i++){
+        std::string sa,sb;
+        std::cin >>sa >>sb;
+        if(check(sa,sb)==true) array[i]=1;
+        else array[i]=0;
+    }
+    for(int i=0;i<n;i++){
+        if(array[i]==1) std::cout<<"YES\n";
+        if(array[i]==0) std::cout<<"NO\n";
+    }
+    return 0;
+}
